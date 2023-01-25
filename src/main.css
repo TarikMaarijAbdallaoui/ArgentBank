@@ -289,3 +289,34 @@ body {
     width: 200px;
   }
 }
+
+.form-control {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.form-control div {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control input {
+  padding: 0.3rem;
+}
+
+.form-control span {
+  font-size: 0.8rem;
+  color: red
+}
+
+.form-control .button {
+  width: 100px;
+  padding: 5px;
+  font-weight: bold;
+  border-color: #00bc77;
+  background-color: #00bc77;
+  color: #fff;
+}
