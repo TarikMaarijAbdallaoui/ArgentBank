@@ -15,7 +15,7 @@ const Signin = () => {
 
   useEffect(() => {
     if (status == 'success'){
-      navigate('/user')
+      navigate('/profile')
     }
   }, [status])
   
