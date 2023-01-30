@@ -42,3 +42,26 @@ export const getUser = createAsyncThunk("user/getUser", async (token, {rejectWit
               return rejectWithValue(error)  
         }
 } )
+
+export const editUser = createAsyncThunk("user/editUser", async ({firstName, lastName}, {rejectWithValue}) =>{
+        const options = {
+                method: 'PUT',
+                headers:{ 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                },
+                body: {firstName, lastName}
+                
+        }
+        try {
+                console.log("actualizando");
+                const response =  await fetch('http://localhost:3001/api/v1/user/profile', options)
+                const data = await response.json()
+
+                console.log(data)
+                return data.body
+        } catch (error) {
+              return rejectWithValue(error)  
+        }
+})
