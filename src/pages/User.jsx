@@ -29,11 +29,11 @@ const User = () => {
   const [toggleEdit, setToggleEdit] = useState(false)
    
   const navigate = useNavigate()
-  useEffect(() => {
-    if(status != 'success'){
-      navigate('/signin')
-    }
-  }, [status])
+  // useEffect(() => {
+  //   if(status != 'success'){
+  //     navigate('/login')
+  //   }
+  // }, [status])
   
   return (
     <main className="main bg-dark">
