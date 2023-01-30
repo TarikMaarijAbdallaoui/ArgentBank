@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { login, getUser } from '../actions/userActions'
+import { login, getUser, editUser } from '../actions/userActions'
 
 const initialState = {
   token: '',
@@ -12,11 +12,11 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logout: {
-      token: '',
-      info: {},
-      status: 'idle', 
-      error: null,
+    logout: state => {
+      state.token = '',
+      state.info = {},
+      state.status = 'idle', 
+      state.error = null
     }
   },
   extraReducers: (builder) => {
@@ -38,9 +38,17 @@ export const userSlice = createSlice({
       }).addCase(getUser.rejected,(state, action) => {
         state.status = 'failed'
         state.error = action.payload
+      }).addCase(editUser.pending, (state, action) => {
+        state.status= 'loading'
+      }).addCase(editUser.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.info = action.payload
+      }).addCase(editUser.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.payload
       })
   },
 })
 
-export const logout = userSlice.logout
+export const {logout} = userSlice.actions
 export default userSlice.reducer
