@@ -1,67 +1,88 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
+export const login = createAsyncThunk(
+  'user/login',
+  async ({ email, password }, { rejectWithValue, dispatch }) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    }
+    try {
+      const response = await fetch(
+        'http://localhost:3001/api/v1/user/login',
+        options,
+      )
+      const data = await response.json()
 
-export const login = createAsyncThunk('user/login', async ({email, password}, {rejectWithValue, dispatch}) =>{
-        const options = {
-                method: 'POST',
-                headers:{ 'Content-Type': 'application/json', 'Accept': 'application/json',},
-                body: JSON.stringify({email, password})
-        }
-        try {
-                const response = await  fetch('http://localhost:3001/api/v1/user/login', options)
-                const data = await response.json()
+      const token = data.body.token
 
-                const token = data.body.token
-                console.log(token)
-
+       /* if (token) {
                 dispatch(getUser(token))
-
                 return token
-        } catch (error) {
-              return rejectWithValue(error)  
-        }
-})
+        } else {
+                alert("Wrong login information. Please try again.")
+        } */
 
-export const getUser = createAsyncThunk("user/getUser", async (token, {rejectWithValue}) => {
-        const options = {
-                method: 'POST',
-                headers:{ 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                },
-                
-        }
-        try {
-                const response =  await fetch('http://localhost:3001/api/v1/user/profile', options)
-                const data = await response.json()
+      dispatch(getUser(token))
+              return token
 
-                console.log(data)
-                return data.body
-        } catch (error) {
-              return rejectWithValue(error)  
-        }
-} )
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
 
-export const editUser = createAsyncThunk("user/editUser", async ({firstName, lastName}, {rejectWithValue}) =>{
-        const options = {
-                method: 'PUT',
-                headers:{ 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                },
-                body: {firstName, lastName}
-                
-        }
-        try {
-                console.log("actualizando");
-                const response =  await fetch('http://localhost:3001/api/v1/user/profile', options)
-                const data = await response.json()
+export const getUser = createAsyncThunk(
+  'user/getUser',
+  async (token, { rejectWithValue }) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    try {
+      const response = await fetch(
+        'http://localhost:3001/api/v1/user/profile',
+        options,
+      )
+      const data = await response.json()
 
-                console.log(data)
-                return data.body
-        } catch (error) {
-              return rejectWithValue(error)  
-        }
-})
+      return data.body
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
+
+export const editUser = createAsyncThunk(
+  'user/editUser',
+  async ({ firstName, lastName, token }, { rejectWithValue }) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ firstName, lastName }),
+    }
+    try {
+      const response = await fetch(
+        'http://localhost:3001/api/v1/user/profile',
+        options,
+      )
+      const data = await response.json()
+
+      return data.body
+    } catch (error) {
+      return rejectWithValue(error)
+    }
+  },
+)
