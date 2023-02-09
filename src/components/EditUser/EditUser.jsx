@@ -6,6 +6,8 @@ import { editUser } from "../../store/actions/userActions";
 const EditUser = ({ setToggleEdit }) => {
   const dispatch = useDispatch()
   const info = useSelector((state) => state.user.info);
+  const token = useSelector((state) => state.user.token)
+  console.log("¨Token", token)
   const { register, handleSubmit, formState: {errors} } = useForm({
     defaultValues: {
       firstName: info.firstName,
@@ -13,14 +15,14 @@ const EditUser = ({ setToggleEdit }) => {
     },
   });
 
-  const handleEdit= data => {
-    console.log(data);
-    dispatch(editUser(data))
+  const handleEdit= (data, token) => {
+    const {firstName, lastName} = data
+    dispatch(editUser({firstName, lastName, token}))
     setToggleEdit(false)
   }
   return (
     <div>
-      <form onSubmit={handleSubmit(data => handleEdit(data))}>
+      <form onSubmit={handleSubmit(data => handleEdit(data, token))}>
         <div className="form-control">
           <div>
             <input {...register("firstName", {required: true})} />
