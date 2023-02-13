@@ -13,7 +13,7 @@ export const login = createAsyncThunk(
     }
     try {
       const response = await fetch(
-        'http://localhost:3001/api/v1/user/login',
+        'https://argentbank-server-production.up.railway.app/api/v1/user/login',
         options,
       )
       const data = await response.json()
@@ -49,7 +49,7 @@ export const getUser = createAsyncThunk(
     }
     try {
       const response = await fetch(
-        'http://localhost:3001/api/v1/user/profile',
+        'https://argentbank-server-production.up.railway.app/api/v1/user/profile',
         options,
       )
       const data = await response.json()
@@ -75,7 +75,7 @@ export const editUser = createAsyncThunk(
     }
     try {
       const response = await fetch(
-        'http://localhost:3001/api/v1/user/profile',
+        'https://argentbank-server-production.up.railway.app/api/v1/user/profile',
         options,
       )
       const data = await response.json()
