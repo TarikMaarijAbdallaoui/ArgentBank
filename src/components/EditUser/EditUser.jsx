@@ -7,7 +7,7 @@ const EditUser = ({ setToggleEdit }) => {
   const dispatch = useDispatch()
   const info = useSelector((state) => state.user.info);
   const token = useSelector((state) => state.user.token)
-  console.log("¨Token", token)
+
   const { register, handleSubmit, formState: {errors} } = useForm({
     defaultValues: {
       firstName: info.firstName,
