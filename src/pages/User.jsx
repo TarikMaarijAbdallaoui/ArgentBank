@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Account from "../components/Account/Account";
 import EditUser from "../components/EditUser/EditUser";
+import { getUser } from "../store/actions/userActions";
+import { sessionFromLocal } from "../store/slices/userSlice"
 
 const accounts = [
   {
@@ -29,11 +31,19 @@ const User = () => {
   const [toggleEdit, setToggleEdit] = useState(false)
    
   const navigate = useNavigate()
-  // useEffect(() => {
-  //   if(status != 'success'){
-  //     navigate('/login')
-  //   }
-  // }, [status])
+  const dispatch = useDispatch()
+
+   useEffect(() => {
+     if(status != 'success'){
+      const tokenFromLocal = JSON.parse(localStorage.getItem("token")) || null
+      if (tokenFromLocal) {
+        dispatch(sessionFromLocal(tokenFromLocal))
+        dispatch(getUser(tokenFromLocal))
+      } else {
+        navigate('/login')
+      }
+     }
+   }, [status])
   
   return (
     <main className="main bg-dark">

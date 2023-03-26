@@ -13,25 +13,34 @@ export const login = createAsyncThunk(
     }
     try {
       const response = await fetch(
-        'https://argentbank-server-production.up.railway.app/api/v1/user/login',
+        // 'https://argentbank-server-production.up.railway.app/api/v1/user/login',
+        'http://localhost:3001/api/v1/user/login',
         options,
       )
       const data = await response.json()
 
-      const token = data.body.token
+      if (data.status === 200) {
+        console.log(data)
+        const token = data.body.token
+        localStorage.setItem('token', JSON.stringify(token))
+        if (token) {
+          dispatch(getUser(token))
+          return token
+  }} else {
+          alert("Wrong login information. Please try again.")
+  } 
+      
 
-       /* if (token) {
-                dispatch(getUser(token))
-                return token
-        } else {
-                alert("Wrong login information. Please try again.")
-        } */
 
-      dispatch(getUser(token))
-              return token
+
+      
+
+      //dispatch(getUser(token))
+        //      return token
 
     } catch (error) {
-      return rejectWithValue(error)
+      console.log(error)
+      //return rejectWithValue(error)
     }
   },
 )
@@ -49,7 +58,8 @@ export const getUser = createAsyncThunk(
     }
     try {
       const response = await fetch(
-        'https://argentbank-server-production.up.railway.app/api/v1/user/profile',
+        //'https://argentbank-server-production.up.railway.app/api/v1/user/profile',
+        'http://localhost:3001/api/v1/user/profile',
         options,
       )
       const data = await response.json()
@@ -75,7 +85,8 @@ export const editUser = createAsyncThunk(
     }
     try {
       const response = await fetch(
-        'https://argentbank-server-production.up.railway.app/api/v1/user/profile',
+        //'https://argentbank-server-production.up.railway.app/api/v1/user/profile',
+        'http://localhost:3001/api/v1/user/profile',
         options,
       )
       const data = await response.json()

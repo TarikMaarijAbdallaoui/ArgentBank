@@ -16,7 +16,12 @@ export const userSlice = createSlice({
       state.token = '',
       state.info = {},
       state.status = 'idle', 
-      state.error = null
+      state.error = null, 
+      localStorage.removeItem("token")
+    },
+    sessionFromLocal: (state, token) => {
+      state.token = token,
+      state.status = "success"
     }
   },
   extraReducers: (builder) => {
@@ -50,5 +55,5 @@ export const userSlice = createSlice({
   },
 })
 
-export const {logout} = userSlice.actions
+export const {logout, sessionFromLocal} = userSlice.actions
 export default userSlice.reducer
