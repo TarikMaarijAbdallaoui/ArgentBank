@@ -112,32 +112,8 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /accounts/:accountId:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Transactions Module
-      summary: User Account API
-      description: API for fetching account details
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          type: string
-          required: true
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User account details retrieved successully
-          schema:
-            $ref: '#/definitions/AccountResponse'
-        '401':
-          description: User not authorized
-        '500':
-          description: Internal Server Error
-  /accounts/:accountID/transactions:
+
+  /accounts/transactions:
     get:
       security:
         - Bearer: []
@@ -162,14 +138,39 @@ paths:
           description: User not authorized
         '500':
           description: Internal Server Error
-  /accounts/:accountId/transactions/create:
+  /accounts/transactions/:transactionId:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: User Transactions API
+      description: API for fetching all details of a transaction by its ID
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successully
+          schema:
+            $ref: '#/definitions/TransactionsResponse'
+        '401':
+          description: User not authorized
+        '500':
+          description: Internal Server Error
+  /accounts/transactions/:
     post:
       security:
         - Bearer: []
       tags:
         - Transactions Module
       summary: Create Transactions API
-      description: API for fetching all transactions list
+      description: API for creating a new transaction
       parameters:
       - in: header
         name: Authorization
@@ -193,14 +194,14 @@ paths:
           description: User not authorized
         '500':
           description: Internal Server Error
-  /accounts/:accountId/transactions/update:
+  /accounts/transactions/:transactionId/edit:
     put:
       security:
         - Bearer: []
       tags:
         - Transactions Module
       summary: Update Transactions API
-      description: API for fetching all transactions list
+      description: API for editing a transaction
       parameters:
       - in: header
         name: Authorization
@@ -224,14 +225,14 @@ paths:
           description: User not authorized
         '500':
           description: Internal Server Error
-  /accounts/:accountId/transactions/delete:
+  /accounts/transactions/:transactionId/delete:
     delete:
       security:
         - Bearer: []
       tags:
         - Transactions Module
       summary: Delete Transaction API
-      description: API for deleting a transactions 
+      description: API for deleting a transaction
       parameters:
       - in: header
         name: Authorization
