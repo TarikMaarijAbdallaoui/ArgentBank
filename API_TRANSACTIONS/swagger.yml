@@ -239,12 +239,6 @@ paths:
         description: Attach Bearer JWT token
         type: string
         required: true
-      - in: body
-        name:  body
-        description: Transaction Payload
-        required: true
-        schema:
-          $ref: '#/definitions/SingleTransactionResponse'
       produces:
         - application/json
       responses:
@@ -310,15 +304,6 @@ definitions:
         type: string
       lastName:
         type: string
-  AccountResponse:
-    type: object
-    properties: 
-      id:
-        type: string
-      description: 
-        type: string
-      balance:
-        type: number
   TransactionsResponse:
     type: object
     properties: 

@@ -12,15 +12,11 @@ export const login = createAsyncThunk(
       body: JSON.stringify({ email, password }),
     }
     try {
-      const response = await fetch(
-        // 'https://argentbank-server-production.up.railway.app/api/v1/user/login',
-        'http://localhost:3001/api/v1/user/login',
-        options,
-      )
+      const response = await fetch('http://localhost:3001/api/v1/user/login', options )
       const data = await response.json()
 
+    console.log(data)
       if (data.status === 200) {
-        console.log(data)
         const token = data.body.token
         localStorage.setItem('token', JSON.stringify(token))
         if (token) {
@@ -63,6 +59,7 @@ export const getUser = createAsyncThunk(
         options,
       )
       const data = await response.json()
+      console.log(data)
 
       return data.body
     } catch (error) {

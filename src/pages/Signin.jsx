@@ -4,21 +4,14 @@ import { login } from "../store/actions/userActions";
 import  {useNavigate} from "react-router-dom"
 
 const Signin = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
  const status = useSelector(state => state.user.status)
-  const [formData, setFormData] = useState({
+
+ const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (status == 'success'){
-      navigate('/profile')
-    }
-  }, [status])
-  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,9 +19,16 @@ const Signin = () => {
   };
 
   const handleSubmit = (e) => {
+    const {email, password} = formData
     e.preventDefault()
-    dispatch(login(formData));
+  dispatch(login({email, password}));
   };
+
+  useEffect(() => {
+    if (status == 'success'){
+      navigate('/profile')
+    }
+  }, [status]) 
 
   return (
     <main className="main bg-dark">
