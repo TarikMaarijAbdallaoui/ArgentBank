@@ -9,8 +9,7 @@ const FeatureItem = ({icon, iconAlt, title, description}) => {
           className="feature-icon"
         />
         <h3 className="feature-item-title">{title}</h3>
-        <p>{description}
-        </p>
+        <p>{description}</p>
       </div>
   )
 }
