@@ -113,7 +113,7 @@ paths:
         '500':
           description: Internal Server Error
 
-  /accounts/transactions:
+  /accounts/:accountId:
     get:
       security:
         - Bearer: []
@@ -138,7 +138,7 @@ paths:
           description: User not authorized
         '500':
           description: Internal Server Error
-  /accounts/transactions/:transactionId:
+  /accounts/:accountId/:transactionId:
     get:
       security:
         - Bearer: []
@@ -163,38 +163,7 @@ paths:
           description: User not authorized
         '500':
           description: Internal Server Error
-  /accounts/transactions/:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Transactions Module
-      summary: Create Transactions API
-      description: API for creating a new transaction
-      parameters:
-      - in: header
-        name: Authorization
-        description: Attach Bearer JWT token
-        type: string
-        required: true
-      - in: body
-        name:  body
-        description: Transaction Payload
-        required: true
-        schema:
-          $ref: '#/definitions/SingleTransactionResponse'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: User transactions list retrieved successully
-          schema:
-            $ref: '#/definitions/SingleTransactionResponse'
-        '401':
-          description: User not authorized
-        '500':
-          description: Internal Server Error
-  /accounts/transactions/:transactionId/edit:
+  /accounts/:accountId/:transactionId/edit:
     put:
       security:
         - Bearer: []
@@ -225,7 +194,7 @@ paths:
           description: User not authorized
         '500':
           description: Internal Server Error
-  /accounts/transactions/:transactionId/delete:
+  /accounts/:accountId/:transactionId/delete:
     delete:
       security:
         - Bearer: []
@@ -322,5 +291,4 @@ definitions:
         type: number
       category:
         type: string
-      
           
